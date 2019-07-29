@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
+import Player from './components/Player';
 
 class App extends Component{
   constructor (props){
@@ -53,6 +54,7 @@ class App extends Component{
     return (
       <div className="container">
         <h1>Tic Tac Toe Game</h1>
+        <Player />
         <div className="row">
           {Box}
         </div>
