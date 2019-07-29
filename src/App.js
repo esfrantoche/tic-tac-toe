@@ -7,7 +7,8 @@ class App extends Component{
     this.state = {
       board : Array(9).fill(null),
       turn: null,
-      winner: null
+      winner: null,
+      draw:false
     }
   }
   handleClick(index){
@@ -40,18 +41,32 @@ class App extends Component{
   }
 
   checkWon(tttRows) {
+    let isDraw = true;
     for (let index = 0; index < tttRows.length; index++) {
       const [a,b,c] = tttRows[index];
       if(this.state.board[a] && this.state.board[a] === this.state.board[b] && this.state.board[a] === this.state.board[c]){
-        alert("You won");
+        alert("you won");
         this.setState({winner:this.state.turn});
       }
+      if(this.state.board[a] === null ||  this.state.board[b] === null ||  this.state.board[c] === null){
+        isDraw = false;
+      }
+      this.setState({draw:isDraw})
     }
   }
 
   setPlayer(player){
     this.setState({
       turn: player
+    });
+  }
+
+  gameReset(){
+    this.setState({
+      board : Array(9).fill(null),
+      turn: null,
+      winner: null,
+      draw:false
     });
   }
 
@@ -71,10 +86,12 @@ class App extends Component{
         <Status 
           player = {this.state.turn} 
           setPlayer = {(e) => {this.setPlayer(e)}}
-          winner = {this.state.winner}/>
+          winner = {this.state.winner}
+          draw = {this.state.draw} />
         <div className="row">
           {Box}
         </div>
+        <button type="button" class="btn btn-success" onClick={() => this.gameReset()}>Restart</button>
       </div>
     );
   }
