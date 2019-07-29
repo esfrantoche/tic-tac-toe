@@ -7,21 +7,23 @@ class App extends Component{
     super(props)
     this.state = {
       board : Array(9).fill(null),
-      turn: "X",
+      turn: null,
       winner: null
     }
   }
   handleClick(index){
-    let updatedBoard = this.state.board;
-    if (this.state.board[index] === null && !this.state.winner){
-      updatedBoard[index] = this.state.turn;
-      let nextTurn = this.state.turn === "X" ? "0" : "X";
-      this.setState({
-        board: updatedBoard,
-        turn: nextTurn
-      });
+    if(this.state.turn && !this.state.winner){
+      let updatedBoard = this.state.board;
+      if (this.state.board[index] === null){
+        updatedBoard[index] = this.state.turn;
+        let nextTurn = this.state.turn === "X" ? "0" : "X";
+        this.setState({
+          board: updatedBoard,
+          turn: nextTurn
+        });
+      }
+      this.winCalculation();
     }
-    this.winCalculation();
   }
   winCalculation(){
     let tttRows =
@@ -43,18 +45,25 @@ class App extends Component{
       }
     }
   }
+  setPlayer(player){
+    this.setState({
+      turn: player
+    });
+  }
   render(){
-    const Box = this.state.board.map((box, index) => 
-                                          <div
-                                              className="box col-md-4 text-center" 
-                                              key={index} 
-                                              onClick={ (e) => this.handleClick(index)}>
-                                                {box}
-                                          </div>);
+    const Box = this.state.board.map(
+      (box, index) => 
+        <div
+            className="box col-md-4 text-center" 
+            key={index} 
+            onClick={ (e) => this.handleClick(index)}>
+              {box}
+        </div>
+      );
     return (
       <div className="container">
         <h1>Tic Tac Toe Game</h1>
-        <Player />
+        <Player player={(e) => this.setPlayer(e)}/>
         <div className="row">
           {Box}
         </div>
