@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import Player from './components/Player';
-import TurnPlayer from './components/turnPlayer'
+import Status from './components/Status';
 class App extends Component{
   constructor (props){
     super(props)
@@ -37,6 +36,10 @@ class App extends Component{
       ["0", "4", "8"],
       ["2", "4", "6"],
     ]
+    this.checkWon(tttRows);
+  }
+
+  checkWon(tttRows) {
     for (let index = 0; index < tttRows.length; index++) {
       const [a,b,c] = tttRows[index];
       if(this.state.board[a] && this.state.board[a] === this.state.board[b] && this.state.board[a] === this.state.board[c]){
@@ -45,11 +48,13 @@ class App extends Component{
       }
     }
   }
+
   setPlayer(player){
     this.setState({
       turn: player
     });
   }
+
   render(){
     const Box = this.state.board.map(
       (box, index) => 
@@ -60,13 +65,13 @@ class App extends Component{
               {box}
         </div>
       );
-    let turn = this.state.turn ? 
-      <TurnPlayer turn ={this.state.turn}/> :
-      <Player player={(e) => this.setPlayer(e)}/>
     return (
       <div className="container">
         <h1>Tic Tac Toe Game</h1>
-        {turn}
+        <Status 
+          player = {this.state.turn} 
+          setPlayer = {(e) => {this.setPlayer(e)}}
+          winner = {this.state.winner}/>
         <div className="row">
           {Box}
         </div>
