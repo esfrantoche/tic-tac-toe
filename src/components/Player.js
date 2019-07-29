@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Form, Button, Col } from 'react-bootstrap';
-import { Card, CardTitle, CardText } from 'reactstrap';
+import { CardText } from 'reactstrap';
 
 class Player extends Component{
   handleForm(e) {
