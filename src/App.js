@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Status from './components/Status';
-import { Badge, Card, CardTitle, CardText, Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { Alert, Badge, Card, CardTitle, CardText, Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 class App extends Component{
   constructor (props){
@@ -100,7 +100,9 @@ class App extends Component{
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>Result</ModalHeader>
           <ModalBody>
-            You won !            
+          <Alert color="success">
+            Contratulations, You won !
+          </Alert>   
           </ModalBody>
         </Modal>
         <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
