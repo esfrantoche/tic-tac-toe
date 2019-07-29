@@ -20,12 +20,12 @@ class Player extends Component{
               </Form.Group>
             </Form.Row>
             <Form.Row>
-              <Button variant="primary" type="submit">
+              <Button color="primary" type="submit">
                 New Game
-              </Button>
+              </Button>{' '}
               <Form.Text as={Col} className="text-muted">
                 Start Game or select game
-              </Form.Text>
+              </Form.Text>{' '}
             </Form.Row>
           </Form>)
   };

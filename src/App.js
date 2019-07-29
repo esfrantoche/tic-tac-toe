@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Player from './components/Player';
-
+import TurnPlayer from './components/turnPlayer'
 class App extends Component{
   constructor (props){
     super(props)
@@ -60,10 +60,13 @@ class App extends Component{
               {box}
         </div>
       );
+    let turn = this.state.turn ? 
+      <TurnPlayer turn ={this.state.turn}/> :
+      <Player player={(e) => this.setPlayer(e)}/>
     return (
       <div className="container">
         <h1>Tic Tac Toe Game</h1>
-        <Player player={(e) => this.setPlayer(e)}/>
+        {turn}
         <div className="row">
           {Box}
         </div>
