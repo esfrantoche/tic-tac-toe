@@ -24,4 +24,6 @@ This project was bootstrapped.
 
 * npm install
 
+## Start, Watch and Play
+
 * npm start
