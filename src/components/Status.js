@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Player from './Player';
-import TurnPlayer from './turnPlayer'
+import TurnPlayer from './turnPlayer';
+import { Badge } from 'reactstrap';
 
 class Status extends Component {
   handleSetPlayer(e) {
@@ -13,7 +14,7 @@ class Status extends Component {
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <div className="alert alert-primary text-center" role="alert">
-              <b>The player <i>{this.props.winner}</i> has won</b>{' '}
+              <h1>The player <Badge color="secondary">{this.props.winner}</Badge> has won</h1>
             </div>
           </div>
         </div>
@@ -23,7 +24,7 @@ class Status extends Component {
         <div className="row">
           <div className="col-md-6 offset-md-3">
             <div className="alert alert-warning text-center" role="alert">
-              <b>It was a draw</b>{' '}
+              <h1>It was a draw</h1>{' '}
             </div>
           </div>
         </div>

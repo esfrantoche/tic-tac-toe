@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import './App.css';
 import Status from './components/Status';
+import { Badge, Card, CardTitle, CardText, Modal, ModalHeader, ModalBody } from 'reactstrap';
+
 class App extends Component{
   constructor (props){
     super(props)
@@ -8,9 +10,12 @@ class App extends Component{
       board : Array(9).fill(null),
       turn: null,
       winner: null,
-      draw:false
-    }
+      draw:false,
+      modal:false
+    };
+    this.toggle = this.toggle.bind(this);
   }
+
   handleClick(index){
     if(this.state.turn && !this.state.winner){
       let updatedBoard = this.state.board;
@@ -45,8 +50,10 @@ class App extends Component{
     for (let index = 0; index < tttRows.length; index++) {
       const [a,b,c] = tttRows[index];
       if(this.state.board[a] && this.state.board[a] === this.state.board[b] && this.state.board[a] === this.state.board[c]){
-        alert("you won");
-        this.setState({winner:this.state.turn});
+        this.setState({
+          winner:this.state.turn,
+          modal:true
+        });
       }
       if(this.state.board[a] === null ||  this.state.board[b] === null ||  this.state.board[c] === null){
         isDraw = false;
@@ -66,8 +73,15 @@ class App extends Component{
       board : Array(9).fill(null),
       turn: null,
       winner: null,
-      draw:false
+      draw:false,
+      modal:false
     });
+  }
+  
+  toggle() {
+    this.setState(prevState => ({
+      modal: !prevState.modal
+    }));
   }
 
   render(){
@@ -77,21 +91,37 @@ class App extends Component{
             className="box col-md-4 text-center" 
             key={index} 
             onClick={ (e) => this.handleClick(index)}>
-              {box}
+            <h1><Badge color="secondary">{box}</Badge></h1>
+              
         </div>
       );
     return (
       <div className="container">
-        <h1>Tic Tac Toe Game</h1>
-        <Status 
-          player = {this.state.turn} 
-          setPlayer = {(e) => {this.setPlayer(e)}}
-          winner = {this.state.winner}
-          draw = {this.state.draw} />
-        <div className="row">
-          {Box}
-        </div>
-        <button type="button" class="btn btn-success" onClick={() => this.gameReset()}>Restart</button>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+          <ModalHeader toggle={this.toggle}>Result</ModalHeader>
+          <ModalBody>
+            You won !            
+          </ModalBody>
+        </Modal>
+        <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+          <CardTitle>Tic Tac Toe Game</CardTitle>
+          <CardText>
+            <Status 
+              player = {this.state.turn} 
+              setPlayer = {(e) => {this.setPlayer(e)}}
+              winner = {this.state.winner}
+              draw = {this.state.draw} />
+            <button type="button" class="btn btn-danger" onClick={() => this.gameReset()}>Restart</button>
+          </CardText>
+        </Card>
+        <Card body outline color="secondary">
+          <CardText>
+            <div className="row">
+              {Box}
+            </div>
+          </CardText>
+        </Card>
+        
       </div>
     );
   }
